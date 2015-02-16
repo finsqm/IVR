@@ -1,4 +1,4 @@
-function [ top_left, top_right, bottom_left, bottom_right ] = corners( image )
+function [ height_min, height_max, width_min, width_max ] = corners( image )
 %UNTITLED2 Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -46,11 +46,6 @@ for i = 1 : H
     end
     
 end
-
-top_left = [width_min, H - height_min];
-top_right = [width_max, H - height_min];
-bottom_left = [width_min, H - height_max];
-bottom_right = [width_max, H - height_max];
 
 end
 
