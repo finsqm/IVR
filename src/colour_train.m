@@ -6,7 +6,7 @@ function svm = colour_train( img_cell , gt_training )
 [N, ~] = size(gt_training);
 
 y = zeros(N,1);
-X = zeros(N,101);
+X = zeros(N,1);
 
 for i = 1 : N
     
@@ -16,7 +16,16 @@ for i = 1 : N
     
     % Make X (feature vectors) - histogram of hue values, 100 bins
     img = img_cell{i};
+    red_img = img(:,:,1);
+    green_img = img(:,:,2);
+    blue_img = img(:,:,3);
     
+    
+    r = red_img ./ (red_img + green_img + blue_img);
+    
+    r_sum = sum(sum(r));
+    
+    X(i) = r_sum;
     
 end
 

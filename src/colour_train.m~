@@ -16,7 +16,11 @@ for i = 1 : N
     
     % Make X (feature vectors) - histogram of hue values, 100 bins
     img = img_cell{i};
+    red_img = img(:,:,1);
+    green_img = img(:,:,2);
+    blue_img = img(:,:,3);
     
+    r = 
     
 end
 

@@ -6,23 +6,15 @@ function  label = classify_colour( svm, test )
 % test: cell array of test images
 
 [N, ~] = size(test);
-X = zeros(N, 101);
+X = zeros(N, 3);
 
 for i = 1 : N
     
-    % Make X (feature vectors) - histogram of hue values, 100 bins
     img = test{i};
-    red_img = img(:,:,1);
-    green_img = img(:,:,2);
-    blue_img = img(:,:,3);
-    
-    
-    r = red_img ./ (red_img + green_img + blue_img);
-    
-    r_sum = sum(sum(r));
-    
-    X(i) = r_sum;
-    
+    r = sum(sum(img(:,:,1)));
+    g = sum(sum(img(:,:,2)));
+    b = sum(sum(img(:,:,3)));
+    X(i,:) = [double(r) double(g) double(b)];
     
 end
 
