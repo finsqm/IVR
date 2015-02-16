@@ -10,23 +10,14 @@ X = zeros(N,101);
 
 for i = 1 : N
     
-    % Make y (class labels)
+    % Make y (class labels) BLACK=1 RED=0
     suit = gt_training(i,1);
     y(i) = mod(suit,2);
     
     % Make X (feature vectors) - histogram of hue values, 100 bins
     img = img_cell{i};
-    hsv = rgb2hsv(img);
-    hue = hsv(:,:,1);
-    [H,W] = size(hue);
-    M = H*W;
     
-    for j = 1 : M
-        
-        h = hue(j);
-        x = str2double(sprintf('%.2f',h));
-        y = x*100 - 1;
-        X(:,y) = X(:,y) + 1;
+    
 end
 
 svm = fitcsvm(X,y);

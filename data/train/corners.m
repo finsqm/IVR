@@ -11,7 +11,9 @@ width_max = 0;
 
 for k = 1 : N
         
-        [i,j] = boundary(k,:);
+        point = boundary(k,:);
+        i = point(1);
+        j = point(2);
     
         if i < height_min 
                 
