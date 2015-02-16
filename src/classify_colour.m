@@ -6,7 +6,7 @@ function  label = classify_colour( svm, test )
 % test: cell array of test images
 
 [N, ~] = size(test);
-X = zeros(N, 101);
+X = zeros(N, 1);
 
 for i = 1 : N
     

@@ -1,5 +1,5 @@
 img_cell = load_train();
-test = load_test()
+test = load_test();
 N = size(img_cell);
 crops = cell(N);
 for i = 1 : N
@@ -7,7 +7,7 @@ for i = 1 : N
     BW = edge(rgb2gray(I), 'canny');
     BW2 = bwareaopen(BW, 700);
     BW3 = imfill(BW2, 'holes');
-    [B,L] = bwboundaries(BW2,'noholes');
+    [B,~] = bwboundaries(BW2,'noholes');
     % Display the label matrix and draw each boundary
     %figure; imshow(I)
     %hold on
@@ -16,10 +16,25 @@ for i = 1 : N
     [ height_min, height_max, width_min, width_max ] = corners( boundary );
 
     crop = I(height_min:height_max, width_min:width_max, :);
-    hsv = rgb2hsv(crop);
     crops{i} = crop;
-    %figure; imshow(sat)
+    
+    BW = im2bw(crop, graythresh(crop));
+    
+    [B,L,N,A] = bwboundaries(BW);
+    figure, imshow(BW); hold on;
+    colors=['b' 'g' 'r' 'c' 'm' 'y'];
+    for k=1:length(B)
+        boundary = B{k};
+        cidx = mod(k,length(colors))+1;
+        plot(boundary(:,2), boundary(:,1),...
+             colors(cidx),'LineWidth',2);
+        %randomize text position for better visibility
+        rndRow = ceil(length(boundary)/(mod(rand*k,7)+1));
+        col = boundary(rndRow,2); row = boundary(rndRow,1);
+        h = text(col+1, row-1, num2str(L(row,col)));
+        set(h,'Color',colors(cidx),...
+            'FontSize',14,'FontWeight','bold');
+    end
+    figure; spy(A);
 end
 
-svm = colour_train( crops , gt_training );
-label = classify_colour( svm, test )

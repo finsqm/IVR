@@ -23,7 +23,7 @@ for i = 1 : N
     
     r = red_img ./ (red_img + green_img + blue_img);
     
-    r_sum = sum(sum(r));
+    r_sum = sum(sum(r))
     
     X(i) = r_sum;
     
